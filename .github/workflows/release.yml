@@ -2,10 +2,6 @@ name: release
 
 on:
   workflow_dispatch:
-    inputs:
-      versionTag:
-        description: 'Tag (semantic version)'
-        required: true
 
 jobs:
   build:
@@ -24,14 +20,15 @@ jobs:
           tag_prefix: ""
           major_pattern: "BREAKING CHANGE:"
           minor_pattern: "feat:"
-          format: "${major}.${minor}.${patch}-prerelease${increment}"
+          format: "${major}.${minor}.${patch}"
           bump_each_commit: false
-      - name: Create Release
-        if: ${{ !startsWith(github.ref, 'refs/tags/') }}
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.github_token }}
+
+      - name: Create Release Notes
+        uses: actions/github-script@v4.0.2
         with:
-          tag_name: ${{ steps.versioning.outputs.version }}
-          release_name: ${{ steps.versioning.outputs.version_tag }}
-          prerelease: true
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            await github.request(`POST /repos/${{ github.repository }}/releases`, {
+              tag_name: "${{ steps.versioning.outputs.version }}",
+              generate_release_notes: true
+            });
