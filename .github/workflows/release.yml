@@ -2,9 +2,10 @@ name: release
 
 on:
   workflow_dispatch:
-    tags:
-      description: 'Tag (semantic version)'
-      required: true
+    inputs:
+      versionTag:
+        description: 'Tag (semantic version)'
+        required: true
 
 jobs:
   build:
