@@ -23,6 +23,7 @@ jobs:
           major_pattern: "BREAKING CHANGE:"
           minor_pattern: "feat:"
           format: "${major}.${minor}.${patch}-pre+${increment}"
+          bump_each_commit: false
       - name: Create Release
         if: ${{ !startsWith(github.ref, 'refs/tags/') }}
         uses: actions/create-release@v1
