@@ -6,7 +6,7 @@ public class Extension {
     System.out.println("Hi World!");
     System.out.println("Welcome");
 
-    System.out.println("----");
+    System.out.println("----d");
   }
 
 }
