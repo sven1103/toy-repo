@@ -31,7 +31,7 @@ jobs:
         if: ${{ !startsWith(github.ref, 'refs/tags/')
                   && ( !contains(github.event.inputs.versionTag, 'alpha')
                      || !contains(github.event.inputs.versionTag, 'beta')
-                     || !contains(github.event.inputs.versionTag, 'rc')}}
+                     || !contains(github.event.inputs.versionTag, 'rc')) }}
         uses: actions/github-script@v4.0.2
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
@@ -45,7 +45,7 @@ jobs:
         if: ${{ !startsWith(github.ref, 'refs/tags/')                     
                   && ( !contains(github.event.inputs.versionTag, 'alpha')
                      || !contains(github.event.inputs.versionTag, 'beta')
-                     || !contains(github.event.inputs.versionTag, 'rc')}}
+                     || !contains(github.event.inputs.versionTag, 'rc')) }}
         uses: actions/github-script@v4.0.2
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
