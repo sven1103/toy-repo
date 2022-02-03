@@ -1,9 +1,10 @@
 name: release
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+    tags:
+      description: 'Tag (semantic version)'
+      required: true
 
 jobs:
   build:
