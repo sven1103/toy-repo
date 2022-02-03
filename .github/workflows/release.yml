@@ -22,7 +22,8 @@ jobs:
           tag_prefix: ""
           major_pattern: "BREAKING CHANGE:"
           minor_pattern: "feat:"
-          format: "v${major}.${minor}.${patch}-pre+${increment}"
+          patch_pattern: "fix:"
+          format: "${major}.${minor}.${patch}-pre+${increment}"
       - name: Create Release
         if: ${{ !startsWith(github.ref, 'refs/tags/') }}
         uses: actions/create-release@v1
