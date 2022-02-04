@@ -28,10 +28,10 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Set version in Maven project
-        run:  mvn versions:set ${{ github.event.inputs.versionTag }}
+        run:  mvn versions:set -DnewVersion ${{ github.event.inputs.versionTag }}
 
       - name: Checkin commit
-        run: git commit . -m "Set version to ${{ github.event.inputs.versionTag }}"
+        run: git commit . -m 'Set version to ${{ github.event.inputs.versionTag }}'
 
       - name: Push version update to Github
         run: git push
