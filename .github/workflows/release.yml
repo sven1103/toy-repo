@@ -27,7 +27,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Remove snapshot tags
+      - name: Set version in Maven project
         run:  mvn versions:set ${{ github.event.inputs.versionTag }}
 
       - name: Checkin commit
