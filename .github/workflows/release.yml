@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       versionTag:
-        description: 'Tag (semantic version)'
+        description: 'Version Tag (semantic version)'
         required: true
 
 jobs:
@@ -35,6 +35,9 @@ jobs:
       - name: Set version in Maven project
         run:  mvn versions:set -DnewVersion=${{ github.event.inputs.versionTag }}
 
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
+            
       - name: Checkin commit
         run: git commit . -m 'Set version to ${{ github.event.inputs.versionTag }}'
 
@@ -69,3 +72,9 @@ jobs:
               generate_release_notes: true,
               prerelease: true
             });
+
+      - name: Publish artefact to QBiC Nexus Repository
+        run: mvn --quiet --settings $GITHUB_WORKSPACE/.github.settings.xml deploy
+        env:
+          MAVEN_REPO_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+          MAVEN_REPO_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
